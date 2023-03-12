@@ -20,10 +20,12 @@ int main()
     A a = { 1, 2, 3 };
 
     double memoryPoolTime = 0, newDeleteTime = 0;
+    size_t numberOfElements = Nmult * N;
 
+    std::cout << " Creating and removing " << numberOfElements << " elements" << std::endl;
     {
         // Start timings
-        std::cout << "Testing Memory Pool..." << std::endl;
+        std::cout << " Testing Memory Pool..." << std::endl;
         auto start = std::chrono::high_resolution_clock::now();
 
         {
@@ -42,12 +44,12 @@ int main()
         auto end = std::chrono::high_resolution_clock::now();
         auto diff = end - start;
         memoryPoolTime = std::chrono::duration <double, std::milli>(diff).count();
-        std::cout << memoryPoolTime << " ms" << std::endl;
+        std::cout << " " << memoryPoolTime << " ms" << std::endl;
     }
 
     {
         // Start timings
-        std::cout << "Testing new/delete..." << std::endl;
+        std::cout << " Testing new/delete..." << std::endl;
         auto start = std::chrono::high_resolution_clock::now();
 
         for (int n = 0; n < Nmult; n++)
@@ -62,10 +64,10 @@ int main()
         auto end = std::chrono::high_resolution_clock::now();
         auto diff = end - start;
         newDeleteTime = std::chrono::duration <double, std::milli>(diff).count();
-        std::cout << newDeleteTime << " ms" << std::endl;
+        std::cout << " " << newDeleteTime << " ms" << std::endl;
     }
     auto difference = newDeleteTime - memoryPoolTime;
-    std::cout << "Memory pool was " << difference << " ms faster" << std::endl;
-    std::cout << "Memory pool was " << (newDeleteTime / memoryPoolTime) <<" times faster" << std::endl;
+    std::cout << " Memory pool was " << difference << " ms faster" << std::endl;
+    std::cout << " Memory pool was " << (newDeleteTime / memoryPoolTime) <<" times faster" << std::endl;
 #endif // TestMemoryPool
 }
